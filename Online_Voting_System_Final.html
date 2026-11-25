@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Online Voting System</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#eef4ff,#dbeafe);
+    min-height:100vh;
+    color:#082b68;
+}
+
+/* HEADER */
+
+header{
+    height:75px;
+    background:#172b60;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 7%;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+nav button{
+    background:none;
+    border:none;
+    color:white;
+    font-size:16px;
+    margin-left:25px;
+    cursor:pointer;
+}
+
+nav button:hover{
+    color:#60a5fa;
+}
+
+/* PAGE */
+
+.page{
+    display:none;
+    min-height:calc(100vh - 75px);
+}
+
+.active{
+    display:block;
+}
+
+/* HOME */
+
+.home{
+    text-align:center;
+    padding:80px 20px;
+}
+
+.home h1{
+    font-size:52px;
+    margin-bottom:20px;
+}
+
+.home p{
+    font-size:20px;
+    color:#475569;
+    margin-bottom:30px;
+}
+
+.main-btn{
+    border:none;
+    background:#2864e8;
+    color:white;
+    padding:15px 30px;
+    border-radius:8px;
+    font-size:17px;
+    cursor:pointer;
+    margin:8px;
+}
+
+.main-btn:hover{
+    background:#174dcc;
+}
+
+/* FEATURES */
+
+.features{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    flex-wrap:wrap;
+    margin-top:50px;
+}
+
+.feature{
+    background:white;
+    width:260px;
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0 8px 25px #0002;
+}
+
+.feature h2{
+    margin-bottom:12px;
+}
+
+/* FORM */
+
+.form-box{
+    background:white;
+    width:420px;
+    max-width:90%;
+    margin:70px auto;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 10px 30px #0002;
+    text-align:center;
+}
+
+.form-box h1{
+    margin-bottom:10px;
+}
+
+.form-box p{
+    color:#64748b;
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    margin:9px 0;
+    border:1px solid #cbd5e1;
+    border-radius:8px;
+    font-size:15px;
+}
+
+/* TITLE */
+
+.title{
+    text-align:center;
+    padding:45px 20px 20px;
+}
+
+.title h1{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+/* CANDIDATES */
+
+.candidates{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    flex-wrap:wrap;
+    padding:30px;
+}
+
+.card{
+    background:white;
+    width:280px;
+    padding:30px;
+    text-align:center;
+    border-radius:18px;
+    box-shadow:0 8px 25px #0002;
+}
+
+.person{
+    font-size:55px;
+}
+
+.card h2{
+    margin:15px 0;
+}
+
+.card p{
+    margin:10px;
+    color:#64748b;
+}
+
+/* VOTE PAGE */
+
+.vote-box{
+    background:white;
+    width:690px;
+    max-width:90%;
+    margin:85px auto;
+    padding:55px;
+    border-radius:20px;
+    box-shadow:0 10px 30px #0002;
+}
+
+.vote-box h1{
+    text-align:center;
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.vote-box > p{
+    text-align:center;
+    font-size:18px;
+    margin-bottom:30px;
+}
+
+/* OPTIONS */
+
+.option{
+    display:flex;
+    align-items:center;
+    padding:25px;
+    margin:15px 0;
+    border:2px solid #dbe2ec;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:20px;
+    transition:0.3s;
+}
+
+.option:hover{
+    border-color:#2864e8;
+    background:#f1f6ff;
+}
+
+.option input{
+    width:auto;
+    margin-right:20px;
+    transform:scale(1.3);
+}
+
+/* SUCCESS */
+
+.success-box{
+    background:white;
+    width:650px;
+    max-width:90%;
+    margin:90px auto;
+    padding:60px 40px;
+    border-radius:22px;
+    box-shadow:0 10px 30px #0002;
+    text-align:center;
+}
+
+.success-icon{
+    width:90px;
+    height:90px;
+    background:#22c55e;
+    color:white;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 25px;
+    font-size:55px;
+}
+
+.success-box h1{
+    color:#166534;
+    margin-bottom:15px;
+}
+
+.success-box p{
+    font-size:18px;
+    color:#475569;
+}
+
+/* RESULTS */
+
+.results{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    flex-wrap:wrap;
+    padding:30px;
+}
+
+.result-card{
+    background:white;
+    width:290px;
+    padding:35px;
+    text-align:center;
+    border-radius:20px;
+    box-shadow:0 8px 25px #0002;
+}
+
+.result-card h2{
+    margin-bottom:15px;
+}
+
+.vote-number{
+    font-size:55px;
+    font-weight:bold;
+    color:#2864e8;
+    margin:15px;
+}
+
+.total-box{
+    text-align:center;
+    margin:25px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    header{
+        height:auto;
+        padding:20px;
+        flex-direction:column;
+        gap:15px;
+    }
+
+    nav button{
+        margin:5px;
+    }
+
+    .home h1{
+        font-size:38px;
+    }
+
+    .vote-box h1{
+        font-size:30px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo">
+        🗳️ VoteSecure
+    </div>
+
+    <nav>
+
+        <button onclick="showPage('home')">
+            Home
+        </button>
+
+        <button onclick="showPage('register')">
+            Register
+        </button>
+
+        <button onclick="showPage('login')">
+            Login
+        </button>
+
+        <button onclick="showPage('adminLogin')">
+            Admin
+        </button>
+
+    </nav>
+
+</header>
+
+
+
+<!-- HOME PAGE -->
+
+<section id="home" class="page active">
+
+    <div class="home">
+
+        <h1>
+            🗳️ Online Voting System
+        </h1>
+
+        <p>
+            A simple, fast and easy digital voting system.
+        </p>
+
+        <button class="main-btn"
+                onclick="showPage('register')">
+            Register Now
+        </button>
+
+        <button class="main-btn"
+                onclick="showPage('login')">
+            Login
+        </button>
+
+
+        <div class="features">
+
+            <div class="feature">
+
+                <h2>🔐 Secure</h2>
+
+                <p>
+                    Voter login is required before voting.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <h2>⚡ Fast</h2>
+
+                <p>
+                    Votes are recorded instantly.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <h2>🔐 Admin Results</h2>
+
+                <p>
+                    Election results can be viewed only by authorized admins.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- REGISTER -->
+
+<section id="register" class="page">
+
+    <div class="form-box">
+
+        <h1>Voter Registration</h1>
+
+        <p>
+            Create your voter account
+        </p>
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Enter Full Name"
+        >
+
+        <input
+            type="text"
+            id="voterId"
+            placeholder="Enter Voter ID"
+        >
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter Email"
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Create Password"
+        >
+
+        <button
+            class="main-btn"
+            onclick="register()"
+        >
+            Register
+        </button>
+
+        <p>
+            Already registered?
+
+            <button
+                onclick="showPage('login')"
+                style="border:none;background:none;color:#2864e8;cursor:pointer;"
+            >
+                Login
+            </button>
+
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- LOGIN -->
+
+<section id="login" class="page">
+
+    <div class="form-box">
+
+        <h1>Voter Login</h1>
+
+        <p>
+            Login to continue voting
+        </p>
+
+        <input
+            type="text"
+            id="loginId"
+            placeholder="Enter Voter ID"
+        >
+
+        <input
+            type="password"
+            id="loginPass"
+            placeholder="Enter Password"
+        >
+
+        <button
+            class="main-btn"
+            onclick="login()"
+        >
+            Login
+        </button>
+
+        <p>
+            New voter?
+
+            <button
+                onclick="showPage('register')"
+                style="border:none;background:none;color:#2864e8;cursor:pointer;"
+            >
+                Register
+            </button>
+
+        </p>
+
+    </div>
+
+</section>
+
+
+
+
+<!-- ADMIN LOGIN -->
+<section id="adminLogin" class="page">
+    <div class="form-box">
+        <h1>Admin Login</h1>
+        <p>Only authorized administrators can view election results.</p>
+        <input type="text" id="adminId" placeholder="Enter Admin ID">
+        <input type="password" id="adminPass" placeholder="Enter Admin Password">
+        <button class="main-btn" onclick="adminLogin()">Admin Login</button>
+        <p><button onclick="showPage('home')" style="border:none;background:none;color:#2864e8;cursor:pointer;">Back to Home</button></p>
+    </div>
+</section>
+
+<!-- CANDIDATES -->
+
+<section id="candidates" class="page">
+
+    <div class="title">
+
+        <h1>
+            Election Candidates
+        </h1>
+
+        <p>
+            View candidates and continue to vote.
+        </p>
+
+    </div>
+
+
+    <div class="candidates">
+
+
+        <div class="card">
+
+            <div class="person">
+                👨‍💼
+            </div>
+
+            <h2>
+                Chandra Babu Naidu
+            </h2>
+
+            <p>
+                Symbol: 🌳 Tree
+            </p>
+
+            <button
+                class="main-btn"
+                onclick="showPage('vote')"
+            >
+                Vote
+            </button>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <div class="person">
+                👨‍💼
+            </div>
+
+            <h2>
+                Thalapathi Vijay
+            </h2>
+
+            <p>
+                Symbol: ⭐ Star
+            </p>
+
+            <button
+                class="main-btn"
+                onclick="showPage('vote')"
+            >
+                Vote
+            </button>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <div class="person">
+                👨‍💼
+            </div>
+
+            <h2>
+                Narendra Modi
+            </h2>
+
+            <p>
+                Symbol: 📚 Book
+            </p>
+
+            <button
+                class="main-btn"
+                onclick="showPage('vote')"
+            >
+                Vote
+            </button>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- CAST VOTE -->
+
+<section id="vote" class="page">
+
+    <div class="vote-box">
+
+        <h1>
+            🗳️ Cast Your Vote
+        </h1>
+
+        <p>
+            Select one candidate
+        </p>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="candidate"
+                value="Chandra Babu Naidu"
+            >
+
+            👨‍💼 Chandra Babu Naidu
+            — 🌳 Tree
+
+        </label>
+
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="candidate"
+                value="Thalapathi Vijay"
+            >
+
+            👨‍💼 Thalapathi Vijay
+            — ⭐ Star
+
+        </label>
+
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="candidate"
+                value="Narendra Modi"
+            >
+
+            👨‍💼 Narendra Modi
+            — 📚 Book
+
+        </label>
+
+
+        <button
+            class="main-btn"
+            style="width:100%;margin:20px 0 0 0;"
+            onclick="submitVote()"
+        >
+            Submit Vote
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- SUCCESS PAGE -->
+
+<section id="success" class="page">
+
+    <div class="success-box">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h1>
+            Vote Submitted Successfully!
+        </h1>
+
+        <p id="selectedCandidate">
+            Your vote has been recorded.
+        </p>
+
+        <br>
+
+        <p>
+            Thank you for participating.
+        </p>
+
+
+        <button
+            class="main-btn"
+            onclick="showPage('home')"
+        >
+            🏠 Go to Home
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- RESULTS PAGE -->
+
+<section id="results" class="page">
+
+    <div class="title">
+
+        <h1>
+            🔐 Admin Dashboard — Election Results
+        </h1>
+
+        <p>
+            Current vote count
+        </p>
+
+    </div>
+
+
+    <div class="results">
+
+
+        <div class="result-card">
+
+            <h2>
+                👨‍💼 Chandra Babu Naidu
+            </h2>
+
+            <div
+                class="vote-number"
+                id="chandraVotes"
+            >
+                0
+            </div>
+
+            <p>
+                Votes
+            </p>
+
+        </div>
+
+
+
+        <div class="result-card">
+
+            <h2>
+                👨‍💼 Thalapathi Vijay
+            </h2>
+
+            <div
+                class="vote-number"
+                id="vijayVotes"
+            >
+                0
+            </div>
+
+            <p>
+                Votes
+            </p>
+
+        </div>
+
+
+
+        <div class="result-card">
+
+            <h2>
+                👨‍💼 Narendra Modi
+            </h2>
+
+            <div
+                class="vote-number"
+                id="modiVotes"
+            >
+                0
+            </div>
+
+            <p>
+                Votes
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="total-box">
+
+        Total Votes:
+        <span id="totalVotes">
+            0
+        </span>
+
+    </div>
+
+
+    <div style="text-align:center;">
+
+        <button class="main-btn" onclick="adminLogout()">
+            Logout
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<script>
+
+
+/* SHOW PAGE */
+
+function showPage(page){
+
+    // Results are restricted to an authenticated admin session.
+    if(page === "results" && sessionStorage.getItem("adminLoggedIn") !== "true"){
+        alert("Admin login is required to view election results.");
+        page = "adminLogin";
+    }
+
+    document
+    .querySelectorAll(".page")
+    .forEach(function(p){
+
+        p.classList.remove("active");
+
+    });
+
+    document
+    .getElementById(page)
+    .classList.add("active");
+
+    updateResults();
+
+}
+
+
+
+/* REGISTER */
+
+function register(){
+
+    let name =
+        document.getElementById("name").value;
+
+    let voterId =
+        document.getElementById("voterId").value;
+
+    let email =
+        document.getElementById("email").value;
+
+    let password =
+        document.getElementById("password").value;
+
+
+    if(
+        name === "" ||
+        voterId === "" ||
+        email === "" ||
+        password === ""
+    ){
+
+        alert("Please fill all fields.");
+
+        return;
+
+    }
+
+
+    // Prevent the same Voter ID from being registered twice
+    // in this browser's local registry.
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    let existingUser = users.find(function(u){
+        return u.voterId.toUpperCase() === voterId.trim().toUpperCase();
+    });
+
+    if(existingUser){
+        alert("This Voter ID is already secured/registered. One voter can register only once.");
+        return;
+    }
+
+    let user = {
+        name:name,
+        voterId:voterId.trim().toUpperCase(),
+        email:email,
+        password:password,
+        hasVoted:false,
+        lastLoginAt:null
+    };
+
+    users.push(user);
+    localStorage.setItem("users", JSON.stringify(users));
+
+    // Keep compatibility with the existing single-user voting flow.
+    localStorage.setItem("user", JSON.stringify(user));
+
+    alert("Registration successful! Your Voter ID is now secured in this system.");
+    showPage("login");
+
+}
+
+
+
+/* LOGIN */
+
+function login(){
+
+    let id =
+        document.getElementById("loginId").value;
+
+    let pass =
+        document.getElementById("loginPass").value;
+
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let user = users.find(function(u){
+        return u.voterId.toUpperCase() === id.trim().toUpperCase();
+    });
+
+    // Backward compatibility for accounts created by the earlier version.
+    if(!user){
+        let oldUser = JSON.parse(localStorage.getItem("user"));
+        if(oldUser && oldUser.voterId.toUpperCase() === id.trim().toUpperCase()){
+            user = oldUser;
+            users.push(oldUser);
+        }
+    }
+
+    if(!user){
+
+        alert(
+            "Please register first."
+        );
+
+        showPage("register");
+
+        return;
+
+    }
+
+
+    if(
+        id.trim().toUpperCase() === user.voterId.toUpperCase() &&
+        pass === user.password
+    ){
+
+        // Record the latest login time (India Standard Time).
+        user.lastLoginAt = new Date().toLocaleString("en-IN", {
+            timeZone:"Asia/Kolkata",
+            dateStyle:"medium",
+            timeStyle:"medium"
+        });
+
+        let userIndex = users.findIndex(function(u){
+            return u.voterId.toUpperCase() === user.voterId.toUpperCase();
+        });
+        if(userIndex >= 0){
+            users[userIndex] = user;
+        } else {
+            users.push(user);
+        }
+        localStorage.setItem("users", JSON.stringify(users));
+        localStorage.setItem("user", JSON.stringify(user));
+
+        if(user.hasVoted){
+
+            alert(
+                "You have already voted."
+            );
+
+            showPage("home");
+
+            return;
+
+        }
+
+
+        alert(
+            "Login successful!"
+        );
+
+        showPage("candidates");
+
+    }
+
+    else{
+
+        alert(
+            "Invalid Voter ID or Password."
+        );
+
+    }
+
+}
+
+
+
+
+/* ADMIN LOGIN
+   Demo credentials: ID = admin, Password = admin123
+*/
+function adminLogin(){
+
+    let id = document.getElementById("adminId").value.trim();
+    let pass = document.getElementById("adminPass").value;
+
+    if(id === "admin" && pass === "admin123"){
+        sessionStorage.setItem("adminLoggedIn", "true");
+        alert("Admin login successful!");
+        showPage("results");
+        updateResults();
+    } else {
+        alert("Invalid Admin ID or Password.");
+    }
+}
+
+function adminLogout(){
+    sessionStorage.removeItem("adminLoggedIn");
+    document.getElementById("adminId").value = "";
+    document.getElementById("adminPass").value = "";
+    showPage("home");
+}
+
+/* SUBMIT VOTE */
+
+function submitVote(){
+
+    let selected =
+        document.querySelector(
+            'input[name="candidate"]:checked'
+        );
+
+
+    if(!selected){
+
+        alert(
+            "Please select a candidate."
+        );
+
+        return;
+
+    }
+
+
+    let candidate =
+        selected.value;
+
+
+    let votes =
+        JSON.parse(
+            localStorage.getItem("votes")
+        );
+
+
+    if(!votes){
+
+        votes = {
+
+            "Chandra Babu Naidu":0,
+
+            "Thalapathi Vijay":0,
+
+            "Narendra Modi":0
+
+        };
+
+    }
+
+
+    /* ADD VOTE */
+
+    votes[candidate]++;
+
+
+    localStorage.setItem(
+        "votes",
+        JSON.stringify(votes)
+    );
+
+
+    /* MARK USER AS VOTED */
+
+    let user =
+        JSON.parse(
+            localStorage.getItem("user")
+        );
+
+
+    if(user){
+
+        user.hasVoted = true;
+
+        localStorage.setItem(
+            "user",
+            JSON.stringify(user)
+        );
+
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+        let index = users.findIndex(function(u){
+            return u.voterId.toUpperCase() === user.voterId.toUpperCase();
+        });
+        if(index >= 0){
+            users[index] = user;
+        } else {
+            users.push(user);
+        }
+        localStorage.setItem("users", JSON.stringify(users));
+
+    }
+
+
+    /* SHOW SUCCESS MESSAGE */
+
+    document.getElementById(
+        "selectedCandidate"
+    ).innerHTML =
+
+    "Your vote for <b>" +
+    candidate +
+    "</b> has been submitted successfully.";
+
+
+    /* CLEAR RADIO BUTTON */
+
+    selected.checked = false;
+
+
+    /* UPDATE RESULTS */
+
+    updateResults();
+
+
+    /* OPEN SUCCESS PAGE */
+
+    showPage("success");
+
+}
+
+
+
+/* UPDATE RESULTS */
+
+function updateResults(){
+
+    let votes =
+        JSON.parse(
+            localStorage.getItem("votes")
+        );
+
+
+    if(!votes){
+
+        votes = {
+
+            "Chandra Babu Naidu":0,
+
+            "Thalapathi Vijay":0,
+
+            "Narendra Modi":0,
+
+        };
+
+    }
+
+
+    document.getElementById(
+        "chandraVotes"
+    ).innerText =
+        votes["Chandra Babu Naidu"];
+
+
+    document.getElementById(
+        "vijayVotes"
+    ).innerText =
+        votes["Thalapathi Vijay"];
+
+
+    document.getElementById(
+        "modiVotes"
+    ).innerText =
+        votes["Narendra Modi"];
+
+
+    let total =
+
+        votes["Chandra Babu Naidu"] +
+
+        votes["Thalapathi Vijay"] +
+
+        votes["Narendra Modi"];
+
+
+    document.getElementById(
+        "totalVotes"
+    ).innerText = total;
+
+}
+
+
+/* LOAD RESULTS */
+
+updateResults();
+
+</script>
+
+</body>
+</html>
